@@ -4,7 +4,7 @@ import java.io.File
 
 fun main() {
     val regex = "([0-9]+)-([0-9]+) ([a-z]): ([a-z]+)".toRegex()
-    val file = File("src/aoc2020/day02/input.txt.txt").readLines()
+    val file = File("src/aoc2020/day02/input.txt").readLines()
     val results = file.map {
         regex.find(it)
     }
