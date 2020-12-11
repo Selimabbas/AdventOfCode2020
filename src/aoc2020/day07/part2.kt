@@ -2,22 +2,17 @@ package aoc2020.day07
 
 import java.io.File
 
-
 fun main() {
     data class BagContent(val name: String, val count: Int)
     val shinyBag = "shiny gold"
 
-    fun checkBag(file: Map<String, List<BagContent>>, bags: List<BagContent>): Boolean {
+    fun checkBag(file: Map<String, List<BagContent>>, bags: List<BagContent>): Int {
+        var total = 0
         bags.forEach {
-            if (it.name == shinyBag) {
-                return true
-            } else if (checkBag(file, file[it.name]!!)) {
-                return true
-            }
+            total += it.count * (1 +  checkBag(file, file[it.name]!!))
         }
-        return false
+        return total
     }
-
     val file = File("src/aoc2020/day07/input.txt").readLines().map { line ->
         val (bag, other) = "([a-z]+ [a-z]+) bags contain (.*).".toRegex().matchEntire(line)!!.destructured
         bag to if (other == "no other bags") {
@@ -30,11 +25,5 @@ fun main() {
         }
     }.toMap()
 
-    var total = 0
-    file.forEach {
-        if (checkBag(file, it.value)) {
-            total++
-        }
-    }
-    println(total)
+    println(checkBag(file, file[shinyBag]!!))
 }
