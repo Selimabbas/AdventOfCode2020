@@ -1,7 +1,6 @@
 package aoc2020.day13
 
 import java.io.File
-import kotlin.math.absoluteValue
 
 fun main() {
     val file = File("src/aoc2020/day13/input.txt")
